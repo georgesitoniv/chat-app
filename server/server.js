@@ -29,7 +29,7 @@ io.on('connection', (socket) => {
   socket.on('createMessage', (message, callback) => {
     console.log("Create Message: ", message);
     io.emit(
-      'newLocationMessage',
+      'newMessage',
       generateMessage(message.from, message.text)
     );
     callback();
@@ -38,7 +38,7 @@ io.on('connection', (socket) => {
   socket.on('createLocationMessage', (coords) => {
     io.emit(
       'newLocationMessage',
-      generateLocationMessage('Admin', coords.latitude, coords.longitude)
+      generateLocationMessage('User', coords.latitude, coords.longitude)
     )
   });
 
