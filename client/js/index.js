@@ -46,7 +46,7 @@ locationButton.on('click', function(){
     });
   }, function(){
     locationButton.removeAttr('disabled');
-    ocationButton.text('Send Location');
+    locationButton.text('Send Location');
     alert('Unable to fetch location.')
   });
 });
