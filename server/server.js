@@ -31,7 +31,7 @@ io.on('connection', (socket) => {
     io.to(params.room).emit('updateUserList', users.getUserList(params.room));
     socket.emit(
       'newMessage',
-      generateMessage('Admin', `Welcom to ${params.room} Chat Room.`)
+      generateMessage('Admin', `Welcome to ${params.room} Chat Room.`)
     );
 
     socket.broadcast.to(params.room).emit(
