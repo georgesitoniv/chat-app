@@ -2,6 +2,23 @@ var socket = io();
 var locationButton = $('#btn-send-location');
 var messageTextBox = $('input[name=message]');
 
+function scrollToBottom(){
+  var messagesList  = $('#messages-list');
+  var newMessage = messagesList.children('li:last-child');
+
+  var clientHeight = messagesList.prop('clientHeight');
+  var scrollTop = messagesList.prop('scrollTop');
+  var scrollHeight = messagesList.prop('scrollHeight');
+  var newMessageHeight = newMessage.innerHeight();
+  var lastMessageHeight = newMessage.prev().innerHeight();
+
+  if(clientHeight + scrollTop
+    + newMessageHeight + lastMessageHeight >= scrollHeight){
+      messagesList.scrollTop(scrollHeight);
+  }
+
+}
+
 socket.on('newMessage', function(message){
   var formattedTime = moment(message.createdAt).format('h:mm a');
   var template = $('#message-template').html();
@@ -11,6 +28,7 @@ socket.on('newMessage', function(message){
     createdAt: formattedTime
   });
   $('#messages-list').append(html);
+  scrollToBottom();
 });
 
 socket.on('newLocationMessage', function(message){
@@ -22,6 +40,7 @@ socket.on('newLocationMessage', function(message){
     createdAt: formattedTime
   })
   $('#messages-list').append(html);
+  scrollToBottom();
 });
 
 $('#message-form').on('submit', function(e){
